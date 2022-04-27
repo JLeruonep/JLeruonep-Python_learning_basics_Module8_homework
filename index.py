@@ -1,14 +1,8 @@
 class Product:
-    def __init__(self, title, calorific=1, cost=1):
-        if title == '':
-            raise ValueError('Название не может быть пустым')
-        else:
-            self._title = title
-        if calorific > 0 or cost > 0:
-            self.calorific = calorific
-            self.cost = cost
-        else:
-            raise ValueError('Значения не могут быть меньше нуля или равно нулю')
+    def __init__(self, title='', calorific=1, cost=1):
+        self._title = title
+        self.calorific = calorific
+        self.cost = cost
 
     @property
     def title(self):
@@ -21,20 +15,53 @@ class Product:
         else:
             self._title = value
 
+    @property
+    def calorific(self):
+        return self._calorific
+
+    @calorific.setter
+    def calorific(self, value):
+        if value > 0:
+            self._calorific = value
+        else:
+            raise ValueError('Значение не может быть меньше нуля или равно нулю')
+
+    @property
+    def cost(self):
+        return self._cost
+
+    @cost.setter
+    def cost(self, value):
+        if value > 0:
+            self._cost = value
+        else:
+            raise ValueError('Значение не может быть меньше нуля или равно нулю')
+
 
 class Ingredient:
     def __init__(self, product, weight):
         if weight > 0:
             self.product = product
-            self.weight = weight
+            self._weight = weight
         else:
             raise ValueError('Значение веса должно быть положительным')
 
     def get_calorific(self):
-        return self.weight / 100 * self.product.calorific  # product calorific?
+        return self._weight / 100 * self.product.calorific  # product calorific?
 
     def get_cost(self):
-        return self.weight / 100 * self.product.cost  # product cost?
+        return self._weight / 100 * self.product.cost  # product cost?
+
+    @property
+    def weight(self):
+        return self._weight
+
+    @weight.setter
+    def weight(self, value):
+        if value > 0:
+            self._weight = value
+        else:
+            raise ValueError('Значение веса должно быть положительным')
 
 
 class Pizza(Product):
