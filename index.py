@@ -1,15 +1,14 @@
 class Product:
-    def __init__(self, title='', calorific=0, cost=0):
+    def __init__(self, title, calorific=1, cost=1):
         if title == '':
             raise ValueError('Название не может быть пустым')
         else:
             self._title = title
-
-        # if calorific <= 0 or cost <= 0:
-        #     raise ValueError('Значения не могут быть меньше нуля или равно нулю')
-        # else:
-        self.calorific = calorific
-        self.cost = cost
+        if calorific > 0 or cost > 0:
+            self.calorific = calorific
+            self.cost = cost
+        else:
+            raise ValueError('Значения не могут быть меньше нуля или равно нулю')
 
     @property
     def title(self):
@@ -25,11 +24,11 @@ class Product:
 
 class Ingredient:
     def __init__(self, product, weight):
-        if weight <= 0:
-            raise ValueError('Значение веса должно быть положительным')
-        else:
+        if weight > 0:
             self.product = product
             self.weight = weight
+        else:
+            raise ValueError('Значение веса должно быть положительным')
 
     def get_calorific(self):
         return self.weight / 100 * self.product.calorific  # product calorific?
@@ -76,5 +75,6 @@ pizza_margarita = Pizza('Маргарита', [dough_ingredient, tomato_ingredie
 pizza_margarita_light = Pizza('Маргарита', [dough_ingredient, cheese_ingredient])
 
 # Выводим экземпляр пиццы
+
 print(pizza_margarita)
 print(pizza_margarita_light)
