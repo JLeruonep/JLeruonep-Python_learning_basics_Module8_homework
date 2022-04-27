@@ -96,3 +96,4 @@ class Pizza(TitleChecker):
         for ingredient in self.ingredients:
             result_cost += ingredient.get_cost()
         return result_cost
+
