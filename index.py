@@ -4,11 +4,12 @@ class Product:
             raise ValueError('Название не может быть пустым')
         else:
             self._title = title
-        if calorific <= 0 or cost <= 0:
-            raise ValueError('Значения не могут быть меньше нуля')
-        else:
-            self.calorific = calorific
-            self.cost = cost
+
+        # if calorific <= 0 or cost <= 0:
+        #     raise ValueError('Значения не могут быть меньше нуля или равно нулю')
+        # else:
+        self.calorific = calorific
+        self.cost = cost
 
     @property
     def title(self):
@@ -25,7 +26,7 @@ class Product:
 class Ingredient:
     def __init__(self, product, weight):
         if weight <= 0:
-            raise ValueError('Значение веса не может быть меньше нуля')
+            raise ValueError('Значение веса должно быть положительным')
         else:
             self.product = product
             self.weight = weight
@@ -57,3 +58,23 @@ class Pizza(Product):
         for ingredient in self.ingredients:
             result_cost += ingredient.get_cost()
         return result_cost
+
+
+# Создаем продукты с указанием названия, калорийности продукта и его себестоимости
+dough_product = Product('Тесто', 200, 20)
+tomato_product = Product('Помидор', 100, 50)
+cheese_product = Product('Сыр', 100, 120)
+
+# Из продуктов создаем ингредиенты.
+# Для каждого ингредиента указываем продукт, из которого он состоит и вес продукта
+dough_ingredient = Ingredient(dough_product, 100)
+tomato_ingredient = Ingredient(tomato_product, 100)
+cheese_ingredient = Ingredient(cheese_product, 100)
+
+# Из ингредиентов создаем пиццу
+pizza_margarita = Pizza('Маргарита', [dough_ingredient, tomato_ingredient, cheese_ingredient])
+pizza_margarita_light = Pizza('Маргарита', [dough_ingredient, cheese_ingredient])
+
+# Выводим экземпляр пиццы
+print(pizza_margarita)
+print(pizza_margarita_light)
