@@ -4,7 +4,7 @@ class Product:
             raise ValueError('Название не может быть пустым')
         else:
             self._title = title
-        if calorific < 0 or cost < 0:
+        if calorific <= 0 or cost <= 0:
             raise ValueError('Значения не могут быть меньше нуля')
         else:
             self.calorific = calorific
@@ -24,7 +24,7 @@ class Product:
 
 class Ingredient:
     def __init__(self, product, weight):
-        if weight < 0:
+        if weight <= 0:
             raise ValueError('Значение веса не может быть меньше нуля')
         else:
             self.product = product
@@ -44,11 +44,6 @@ class Pizza(Product):
         self.ingredients = ingredients
 
     def __str__(self):
-        weight = 0
-        calories = 0
-        for ingredient in self.ingredients:
-            weight += ingredient.weight
-            calories += ingredient.get_calorific()
         return f'{self._title} ({self.get_calorific()} kcal) - {self.get_cost()} руб'
 
     def get_calorific(self):
